@@ -12,13 +12,13 @@ Add this line to your application's Gemfile:
 
 Or install it yourself as:
 
-    $ gem install rspecb
+    $ gem install rspec_apib
 
 ## Usage
 
 In your spec_helper.rb file add
 
-    require 'rspec_api_blueprint'
+    require 'rspec_apib'
 
 ## Contributing
 
