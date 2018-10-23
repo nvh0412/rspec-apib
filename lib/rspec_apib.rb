@@ -30,14 +30,12 @@ RSpec.configure do |config|
         # Resource & Action
         f.write "### #{action}\n\n" if [200, 201].include?(response.status)
 
-        # Request
         request_body = request.body.read
         authorization_header = request.env ? request.env['HTTP_EH_AUTH'] : request.headers['HTTP_EH_AUTH']
 
         if request_body.present? || authorization_header.present?
           f.write "+ Request (#{request.content_type})\n\n"
 
-          # Request Headers
           if authorization_header.present?
             f.write "+ Headers\n".indent(2)
             f.write "HTTP_EH_AUTH: #{authorization_header}\n".indent(4)
@@ -45,7 +43,6 @@ RSpec.configure do |config|
 
           f.write "\n"
 
-          # Request Body
           if request_body.present? && request.content_type == 'application/json'
             f.write "+ Body\n".indent(2) if authorization_header
             f.write "#{JSON.pretty_generate(JSON.parse(request_body))}\n".indent(4)
@@ -53,7 +50,6 @@ RSpec.configure do |config|
           end
         end if [200, 201].include?(response.status)
 
-        # Response
         f.write "+ Response #{response.status} (#{response.content_type})\n\n"
 
         if response.body.present? && response.content_type =~ /application\/json/
